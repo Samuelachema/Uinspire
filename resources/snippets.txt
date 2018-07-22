@@ -1,0 +1,86 @@
+
+object-oriented programming (OOP), a style of coding
+in which related actions are grouped into classes to aid in creating more-compact, effective code.
+
+***This helps keep code following the tenant “don’t repeat yourself” (DRY) and easy-to-maintain.
+
+OOP is intimidating to a lot of developers because it introduces new syntax and, at a glance, appears
+to be far more complex than simple procedural, or inline, code. However, upon closer inspection, OOP
+is actually a very straightforward and ultimately simpler approach to programming.
+
+DIFFERENCE BETWEEN OBJECT AND CLASSES
+A class, for example, is like a blueprint for a house. It defines the shape of the house on paper, with
+relationships between the different parts of the house clearly defined and planned out, even though the
+house doesn’t exist.
+
+An object, then, is like the actual house built according to that blueprint.
+
+Classes form the structure of data and actions and use that information to build objects
+
+Structuring Classes
+1. The syntax to create a class is pretty straightforward: declare a class using the *class keyword, followed by
+the name of the class and a set of curly braces ({}):
+       <?php
+class MyClass
+{
+// Class properties and methods go here
+}
+?>
+
+2.  After creating the class, a new class can be instantiated and stored in a variable using the new
+keyword: 
+$obj = new MyClass;
+
+
+
+Defining Class Properties
+To add data to a class, properties, or class-specific variables, are used. To add a property to MyClass, add the following bold code to your script:
+
+<?php
+
+class MyClass
+{
+  public $prop1= "I'm a class property";
+}
+$obj= new MyCLass;
+
+var_dump($obj);
+
+?>
+
+**Class properties do not need an initial value.
+To read this property and output it to the browser, reference the object from to read and the property to be read:
+
+echo $obj->prop1
+
+Defining Class Methods
+Methods are class-specific functions. Individual actions that an object will be able to perform are defined within the class as methods. 
+
+For instance, to create methods that would set and get the value of the class property $prop1, add
+the following bold lines to your code:
+<?php
+class MyClass
+{
+public $prop1 = "I'm a class property!";
+public function setProperty($newval)
+{
+$this->prop1 = $newval;
+}
+public function getProperty()
+{
+return $this->prop1 . "<br />";
+}
+}
+$obj = new MyClass;
+echo $obj->prop1;
+?>
+
+OOP allows objects to reference themselves using $this. When working with in a method, use $this in
+the same way you would use the object name outside the class.
+
+$$$The power of OOP becomes apparent when you’re using multiple instances of the same class. Add
+an additional instance of MyClass into the mix and start setting and getting properties: 
+
+***To make the use of objects easier, PHP also provides a number of magic methods, or special
+methods that are called when certain common actions occur within objects. This allows developers to
+perform a number of useful tasks with relative ease. 
