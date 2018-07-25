@@ -18,7 +18,7 @@
 	*** TO DO LIST***
 	1. Design UI											1
 	2. Design Database Model								1
-	3. Search and download appropriate template				0
+	3. Search and download appropriate template				1
 	4. Develop web UI										0
 	5. Develop database and populate data					0
 	6. Alpha testing										0
