@@ -30,3 +30,13 @@
 	12.Start planning for version 2							0	
 
 */
+
+/*	
+	
+	***INSTALL TO DO LIST***
+	1. Copy Uinspire directory content to install directory
+	2. Change Sidebarnav URLs
+	3. Create and import database
+	4. 
+
+*/
