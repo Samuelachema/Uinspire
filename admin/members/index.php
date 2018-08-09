@@ -236,7 +236,7 @@
                     <label class="g-mb-10">Gender</label>
 
                     <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 g-rounded-25 mb-0">
-                      <select class="js-select u-select--v3-select u-sibling w-100" required="required" id="gender" title="Click to Select Gender" style="display: none;">
+                      <select class="js-select u-select--v3-select u-sibling w-100" required="required" id="gender" title="Click to Select" style="display: none;">
                         <option value="Female" data-content='<span class="d-flex align-items-center w-100"></i><span>Female</span></span>'>Female
                         </option>
                         <option value="Male" data-content='<span class="d-flex align-items-center w-100"></i><span>Male</span></span>'>Male
@@ -450,6 +450,7 @@
         xmlhttp.send();
     }
 }
+
   </script>
 </body>
 </html>

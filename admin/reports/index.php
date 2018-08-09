@@ -108,11 +108,7 @@
                         <div class="d-flex align-self-center">Attendance</div>
                       </div>
                     </th>
-					<th class="g-px-30">
-                      <div class="media">
-                        <div class="d-flex align-self-center">Status</div>
-                      </div>
-                    </th>
+					
                     <th class="g-px-30">
 						
 					</th>
@@ -121,20 +117,18 @@
 
                 <tbody>
 					<?php	
-						$sql = "SELECT * FROM reports ORDER BY date DESC LIMIT 5";
+						$sql = "SELECT * FROM reports ORDER BY meetingdate DESC LIMIT 5";
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) {
 							// output data of each row
 							while($row = $result->fetch_assoc()) {
-								$status = $row['status'];
-								if($status=="pending"){$statusmsg='<span class="u-tags-v1 text-center g-width-100 g-brd-around g-brd-lightred-v2 g-bg-lightred-v2 g-font-size-default g-color-white g-rounded-50 g-py-4 g-px-15">pending</span>';}elseif($status=="revise"){$statusmsg='<span class="u-tags-v1 text-center g-width-100 g-brd-around g-brd-lightblue-v3 g-bg-lightblue-v3 g-font-size-default g-color-white g-rounded-50 g-py-4 g-px-15">revise</span>';}else{$statusmsg='<span class="u-tags-v1 text-center g-width-100 g-brd-around g-brd-darkblue-v2 g-bg-darkblue-v2 g-font-size-default g-color-white g-rounded-50 g-py-4 g-px-15">approved</span>';}
+								
 								echo '
 									<tr>
-									<td class="g-px-30" style="text-align: left;">'.$row['date'].'</td>									
+									<td class="g-px-30" style="text-align: left;">'.date("D, jS-M-Y",strtotime($row['meetingdate'])).'</td>									
 									<td class="g-px-30">'.$row['topic'].'</td>
 									<td class="g-px-30">'.$row['present'].'</td>
-									<td class="g-px-30">'.$statusmsg.'</td>
 									<td class="g-px-30">
 									<div class="d-flex align-items-center g-line-height-1">
 									<a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover g-mr-15" href="view?p='. $row['id'] .'">
@@ -173,16 +167,79 @@
       <h2 class="g-font-weight-300 g-font-size-16 g-color-black mb-0">New Report</h2>
     </header>
 
-    <div class="g-pa-15 g-pa-30--sm">
-      <form>
-       <h1>All the crap and nonsense goes here.</h1>
+    <div class="g-pa-15 g-pa-30--sm" id="nextformrender">
+      <form id="reportform">
+		<div class="col-md-12">
+                <!-- Rounded Text Inputs -->
+                <div class="g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md g-mb-30">
+                  			  
+				   <div class="g-pa-20">
+					
+					<!-- Default Input -->
+                  <div class="form-group g-mb-30">
+                    <label class="g-mb-10" for="inputGroup-3_1">Topic</label>
 
-        <div class="d-flex">
-          <button class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-14 g-mr-15" type="submit">Submit</button>
-          <button class="btn btn-xl u-btn-outline-gray-dark-v6 g-width-160--md g-font-size-14" type="reset" data-fancybox-close>Cancel</button>
+                    <div class="g-pos-rel">
+                      <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+	                  	<i class="hs-admin-check g-absolute-centered g-font-size-default g-color-lightblue-v3"></i>
+	                	</span>
+                      <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-20 g-px-14 g-py-10" type="text" id="topic" placeholder="">
+                    </div>
+                  </div>
+                  <!-- End Default Input -->
+				  <label class="g-mb-10" for="inputGroup-3_1">Lighthouse Meeting Date</label>
+
+					<div class="g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-20 g-mb-30">
+					  <div class="form-group mb-0 g-max-width-600">
+						<div id="datepickerWrapper" class="u-datepicker-right u-datepicker--v3 g-pos-rel w-100 g-cursor-pointer g-brd-around g-brd-gray-light-v7 g-rounded-4">
+						  <input class="js-range-datepicker g-bg-transparent g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-pr-80 g-pl-15 g-py-9" type="text" placeholder="Select Date" data-rp-wrapper="#datepickerWrapper" data-rp-date-format="Y-m-d" id="meetingdate">
+						  <div class="d-flex align-items-center g-absolute-centered--y g-right-0 g-color-gray-light-v6 g-color-lightblue-v9--sibling-opened g-mr-15">
+							<i class="hs-admin-calendar g-font-size-18 g-mr-10"></i>
+							<i class="hs-admin-angle-down"></i>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  <!-- Default Input -->
+                  <div class="form-group g-mb-15">
+                    <label class="g-mb-10" for="inputGroup-3_1">Time Started</label>
+
+                    <div class="g-pos-rel">
+                      <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+	                  	<i class="hs-admin-check g-absolute-centered g-font-size-default g-color-lightblue-v3"></i>
+	                	</span>
+                      <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-20 g-px-14 g-py-10" type="time" id="timestarted" placeholder="6:00pm">
+                    </div>
+					<label class="g-mb-10" for="inputGroup-3_1">Time Ended</label>
+
+                    <div class="g-pos-rel">
+                      <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+	                  	<i class="hs-admin-check g-absolute-centered g-font-size-default g-color-lightblue-v3"></i>
+	                	</span>
+                      <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-20 g-px-14 g-py-10" type="time" id="timeended" placeholder="7:30pm">
+                    </div>
+                  </div>
+                  <!-- End Default Input -->
+				  
+				  
+			
+                  <!-- End Default Input -->
+				  </div>
+				  
+				 </div>
+                <!-- End Rounded Text Inputs -->
+
         </div>
+		<div id="txtHint"><b>info will be displayed here...</b></div>
+		
       </form>
+        <div class="d-flex">
+		   <button class="btn btn-xl u-btn-outline-gray-dark-v6 g-width-160--md g-font-size-14 g-mr-15" type="reset" data-fancybox-close>Close</button>
+		  <button class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-14 g-mr-15" type="submit" onclick="submitUser(topic.value,meetingdate.value,timestarted.value,timeended.value)">Next</button>
+        </div>
+
     </div>
+  
   </div>
 
   <!-- JS Global Compulsory -->
@@ -238,6 +295,9 @@
     $(document).on('ready', function () {
       // initialization of custom select
       $('.js-select').selectpicker();
+	  
+	  // initialization of range datepicker
+      $.HSCore.components.HSRangeDatepicker.init('.js-range-datepicker');
   
       // initialization of sidebar navigation component
       $.HSCore.components.HSSideNav.init('.js-side-nav');
@@ -259,49 +319,7 @@
       // initialization of range slider
       $.HSCore.components.HSSlider.init('#regularSlider');
   
-      // initialization of tags input
-      var tags = new Bloodhound({datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'), queryTokenizer: Bloodhound.tokenizers.whitespace, prefetch: '../assets/include/ajax/tags.json'});
-  
-      tags.initialize();
-  
-      var elt = $('.js-tagsinput');
-  
-      elt.tagsinput({
-        tagClass: function (item) {
-          switch (item.group) {
-            case 'design':
-              return 'u-tags-v1 g-color-white g-bg-teal-v2 g-bg-black--hover g-rounded-50 g-py-5 g-px-20 g-mb-10 g-mb-0--sm';
-            case 'marketing':
-              return 'u-tags-v1 g-color-white g-bg-lightblue-v4 g-bg-black--hover g-rounded-50 g-py-5 g-px-20 g-mb-10 g-mb-0--sm';
-            case 'themes':
-              return 'u-tags-v1 g-color-white g-bg-lightred-v2 g-bg-black--hover g-rounded-50 g-py-5 g-px-20 g-mb-10 g-mb-0--sm';
-          }
-        },
-        itemValue: 'value',
-        itemText: 'text',
-        typeaheadjs: {
-          name: 'tags',
-          displayKey: 'text',
-          source: tags.ttAdapter()
-        }
-      });
-  
-      elt.tagsinput('add', {
-        "value": "design",
-        "text": "Design",
-        "group": "design"
-      });
-      elt.tagsinput('add', {
-        "value": "marketing",
-        "text": "Marketing",
-        "group": "marketing"
-      });
-      elt.tagsinput('add', {
-        "value": "unify",
-        "text": "Unify",
-        "group": "themes"
-      });
-	  
+     
       // initialization of range datepicker
       $.HSCore.components.HSRangeDatepicker.init('#datepicker');
   
@@ -315,6 +333,60 @@
       // initialization of file upload
       $.HSCore.components.HSFileUpload.init('.js-file-upload');
     });
+	function memattend(){
+	var formcount = document.getElementsByName("members").length;
+		var membercheckvalue = "";
+		for (var i = 1; i < formcount; i++) { 
+			var id = "member"+i;
+			membercheckvalue += document.getElementById(id).value +":"+document.getElementById(id).checked+",";
+		}
+		return membercheckvalue;
+		console.log(membercheckvalue);
+	}
+	
+	function submitUser(topic,meetingdate,timestarted,timeended) {
+    if (topic == "" || meetingdate == "" || timestarted == "" || timeended == "") {
+        document.getElementById("txtHint").innerHTML = "All fields are Required!";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("nextformrender").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","submit.php?topic="+topic+"&meetingdate="+meetingdate+"&timestarted="+timestarted+"&timeended="+timeended,true);
+        xmlhttp.send();
+    }
+}
+
+function memattend(memberid,membercheckvalue,lastid,meetingdate) {
+    if (memberid == "") {
+        document.getElementById("txtHint").innerHTML = "Nothing checked";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","attend.php?memberid="+memberid+"&membercheckvalue="+membercheckvalue+"&lastid="+lastid+"&meetingdate="+meetingdate,true);
+        xmlhttp.send();
+    }
+}
   </script>
 </body>
 </html>
